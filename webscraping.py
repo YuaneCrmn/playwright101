@@ -1,6 +1,6 @@
 try:
     from playwright.sync_api import sync_playwright
-
+    
     # If the import succeeds, Playwright is installed
     print("Playwright is installed.")
 except ImportError:
