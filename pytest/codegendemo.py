@@ -1,23 +1,9 @@
-from playwright.sync_api import Playwright, sync_playwright, expect
+from playwright.sync_api import Page, expect
 
 
-def run(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
+def test_example(page: Page) -> None:
     page.goto("https://cakebitesbycarolyn.com/")
-    page.get_by_role("link", name="Naughty Cakes").click()
-    page.get_by_role("link", name="Naughty Cake", exact=True).first.click()
-    with page.expect_popup() as page1_info:
-        page.get_by_role("link", name="PLACE RESERVATION").click()
-    page1 = page1_info.value
-    page1.close()
+    page.locator("#menu-item-1523").get_by_role("link", name="Cupcakes").click()
+    page.get_by_role("link", name="Student").click()
+    page.get_by_role("link", name="Crypto Cupcake").first.click()
     page.get_by_role("link", name="CAKEBITESbyCarolyn Logo").click()
-
-    # ---------------------
-    context.close()
-    browser.close()
-
-
-with sync_playwright() as playwright:
-    run(playwright)
